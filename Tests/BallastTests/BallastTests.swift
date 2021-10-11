@@ -123,11 +123,19 @@ final class DisuseTimeReleaseBallastTests: XCTestCase {
         weak var localWeakManualRelease = disuse
         XCTAssertNotNil(localWeakManualRelease, "Weak referece to first ballast should be non-null")
         
-        RunLoop.current.run(until: Date().addingTimeInterval(DispatchTimeInterval.milliseconds(20).timeInterval()!))
+        func in_ms(_ ms: Int) -> Date {
+            Date().addingTimeInterval(DispatchTimeInterval.milliseconds(ms).timeInterval()!)
+        }
+        
+        RunLoop.current.run(until: in_ms(10))
         weak var secondLocalWeakManualRelease = disuse
-        RunLoop.current.run(until: Date().addingTimeInterval(DispatchTimeInterval.milliseconds(20).timeInterval()!))
+        RunLoop.current.run(until: in_ms(10))
         secondLocalWeakManualRelease = disuse
-        RunLoop.current.run(until: Date().addingTimeInterval(DispatchTimeInterval.milliseconds(20).timeInterval()!))
+        RunLoop.current.run(until: in_ms(10))
+        secondLocalWeakManualRelease = disuse
+        RunLoop.current.run(until: in_ms(10))
+        secondLocalWeakManualRelease = disuse
+        RunLoop.current.run(until: in_ms(10))
         
         XCTAssertNotNil(disuse)
         XCTAssertNotNil(localWeakManualRelease)
